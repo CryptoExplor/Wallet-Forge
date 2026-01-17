@@ -1,23 +1,20 @@
 {
   "version": 2,
+  "name": "wallet-forge",
   "buildCommand": null,
-  "outputDirectory": ".",
+  "outputDirectory": "public",
   "framework": null,
   "public": true,
   "rewrites": [
-    { "source": "/(.*)", "destination": "public/index.html" }
+    { "source": "/(.*)", "destination": "/index.html" }
   ],
   "headers": [
     {
-      "source": "/index.html",
+      "source": "/(.*)",
       "headers": [
         {
           "key": "Cache-Control",
-          "value": "public, max-age=0, must-revalidate"
-        },
-        {
-          "key": "Content-Security-Policy",
-          "value": "default-src 'self'; script-src 'unsafe-inline'; style-src 'unsafe-inline';"
+          "value": "public, max-age=31536000, immutable"
         },
         {
           "key": "X-Content-Type-Options",
@@ -30,6 +27,10 @@
         {
           "key": "Referrer-Policy",
           "value": "no-referrer"
+        },
+        {
+          "key": "Permissions-Policy",
+          "value": "geolocation=(), microphone=(), camera=()"
         }
       ]
     }
