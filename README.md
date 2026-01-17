@@ -1,497 +1,241 @@
-# Wallet Forge
+# Wallet Forge v1.2.0 - Trust-Hardened Release 🔒
 
-> 100% client-side wallet data preparation tool with enterprise-grade validation
+**Release Date:** January 2026
+**Deployment:** [wallet-forge.vercel.app](https://wallet-forge.vercel.app)
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Version](https://img.shields.io/badge/version-1.2-blue.svg)](https://github.com/yourusername/wallet-forge)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](http://makeapullrequest.com)
+---
 
-## 🔥 Features
+## 🎯 Overview
 
-### Security First
-- 🔒 **100% Client-Side** — Zero backend, zero network requests
-- 🔒 **No External Dependencies** — All code runs locally
-- 🔒 **No Data Storage** — Nothing saved to disk or cloud
-- 🔒 **Offline Ready** — Works without internet connection
-- 🔒 **Open Source** — Fully auditable single HTML file
-- 🔥 **Burn Session** — Nuclear option to clear all data
+Wallet Forge v1.2 is a **trust-hardened** release focused on security, validation accuracy, and offline capability. This version removes all external dependencies and adds enterprise-grade features while maintaining our core principle: **100% client-side, zero network calls**.
 
-### Validation (v1.2)
-- ✅ **EIP-55 Checksum** — Proper Ethereum address validation
-- ✅ **Private Key Format** — 64-char hex with optional 0x prefix
-- ✅ **Real-Time Errors** — Shows exact line numbers of invalid entries
-- ✅ **Count Mismatch Detection** — Warns when PKs ≠ Addresses
-- ✅ **Zero-Key Detection** — Prevents all-zero private keys
+---
+
+## 🔥 What's New
+
+### Security & Trust
+- ✅ **Proper EIP-55 Checksum Validation** - Real keccak256 validation using local `js-sha3`
+- ✅ **Offline-First Architecture** - Removed all CDN dependencies, runs 100% offline
+- ✅ **Content Security Policy** - CSP headers block any accidental network calls
+- ✅ **Network Status Indicator** - Real-time offline/online status display
+- 🔥 **Burn Session Feature** - Nuclear option to clear all data + reload
+
+### Validation Improvements
+- ✅ **Line-by-Line Error Detection** - Shows exact line numbers of invalid entries
+- ✅ **Zero-Key Detection** - Prevents all-zero private keys (security risk)
+- ✅ **Count Mismatch Warnings** - Alerts when PK count ≠ Address count
+- ✅ **Real-Time Validation** - As-you-type feedback with error highlighting
+
+### Export Flexibility (New in v1.2)
+Four export format presets for different workflows:
+- **Default** - `private_key, address` (full CSV)
+- **Keys Only** - Private keys (one per line)
+- **Addresses Only** - Addresses (one per line)  
+- **Indexed** - With row numbers for batch tracking
+
+Perfect for bot integration, ethers.js scripts, and automation workflows.
 
 ### Data Processing
-- 🧹 **Auto-Clean** — Removes labels, quotes, and extra whitespace
-- 🎲 **Shuffle** — Fisher-Yates randomization for security
-- 🔄 **Deduplicate** — Remove duplicate wallet pairs
-- 📏 **Normalize** — Lowercase and trim all entries
+- 🧹 **Auto-Clean** - Removes labels, quotes, punctuation
+- 🎲 **Fisher-Yates Shuffle** - Cryptographically sound randomization
+- 🔄 **Smart Deduplication** - Removes duplicate wallet pairs
+- 📏 **Normalize** - Lowercase + trim (enabled by default)
 
-### Export Formats (v1.2)
-- 📋 **Default** — `private_key, address` (CSV)
-- 🔑 **Keys Only** — Private keys (one per line)
-- 🏠 **Addresses Only** — Addresses (one per line)
-- 🔢 **Indexed** — With row numbers for tracking
+---
 
-### Import/Export
-- 📂 **JSON** — Import/export structured wallet data
-- 📊 **CSV** — Standard spreadsheet format
-- 📄 **TXT** — Plain text lists (one per line)
-- 💾 **Individual Downloads** — Export keys or addresses separately
+## 📦 File Size
 
-## 🚀 Quick Start
+- **HTML:** ~21KB uncompressed (~8KB gzipped)
+- **sha3.min.js:** ~5.6KB
+- **Total:** Single-file deployment, zero build process
 
-### Use Online
-Visit the deployed version: [wallet-forge.vercel.app](https://wallet-forge.vercel.app)
-
-### Use Locally (Recommended for Security)
-1. Download `index.html`
-2. Open in any browser
-3. **Works 100% offline** — no internet required
-
-### Deploy Your Own
-
-#### Vercel
-```bash
-git clone https://github.com/yourusername/wallet-forge
-cd wallet-forge
-vercel deploy
-```
-
-#### GitHub Pages
-```bash
-git clone https://github.com/yourusername/wallet-forge
-cd wallet-forge
-# Enable Pages in repo settings
-git push origin main
-```
-
-## 📖 Usage
-
-### Basic Workflow
-1. **Import or paste** wallet data (keys, addresses, or both)
-2. **Validation runs automatically** — see errors in real-time
-3. **Process as needed** — clean, shuffle, dedupe
-4. **Select export format** — choose the output you need
-5. **Export** in your preferred format
-
-### Validation Example
-```
-Input:
-0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb  ❌ Invalid (missing char)
-0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045  ✅ Valid
-
-Result:
-✓ Valid: 1  ✗ Invalid: 1
-Bad lines: 1
-```
-
-### Processing Options
-- **Remove Duplicates** — Enabled by default
-- **Normalize** — Lowercase + trim (enabled by default)
-- **Pad Empty Values** — Fill mismatched rows with blanks
-
-### Export Presets (New in v1.2)
-Perfect for bot integration:
-- **Default** — Full wallet pairs for record keeping
-- **Keys Only** — For ethers.js signer arrays
-- **Addresses Only** — For recipient lists
-- **Indexed** — For batch operations with tracking
-
-### Burn Session (New in v1.2)
-Nuclear option for maximum security:
-```
-🔥 Burn Session → Clears all data + reloads page
-```
-Use after sensitive operations.
+---
 
 ## 🛡️ Security Model
 
-### What This Tool Does NOT Do
+### What This Version Does NOT Do
 - ❌ No API calls
 - ❌ No analytics
 - ❌ No cookies
-- ❌ No localStorage (unless burn session)
-- ❌ No external scripts (v1.2+)
-- ❌ No CDN dependencies (v1.2+)
+- ❌ No external CDN scripts
+- ❌ No localStorage (except burn session)
+- ❌ No telemetry of any kind
 
 ### Trust Verification
-1. Download `index.html`
-2. Disconnect from internet
-3. Open in browser
-4. Tool works perfectly offline ✅
+```bash
+# Download index.html
+# Disconnect from internet
+# Open in browser
+# Tool works perfectly ✅
+```
 
-### Audit Trail
-- Single HTML file (~21KB)
-- No build process
-- No dependencies
-- No external scripts
-- Fully inspectable source
+All code is auditable in a single HTML file + one local cryptography library.
 
-### Safe For
-- ✅ Private key management
-- ✅ Airdrop preparation
-- ✅ Multi-wallet operations
-- ✅ Dev/test workflows
-- ✅ Offline environments
+---
 
 ## 🎯 Use Cases
 
 ### Airdrop Farming
-- Import wallet sets
-- Validate all addresses
-- Shuffle for randomness
-- Export for bot consumption
+- Import wallet sets from multiple sources
+- Validate all addresses (EIP-55 checksum)
+- Shuffle for operational security
+- Export in bot-ready formats
 
-### Bot Integration (v1.2)
-- Export keys-only for ethers.js
-- Export indexed for batch tracking
-- Export addresses for recipient lists
-- Prep data before automation
-
-### Development
-- Clean messy CSV exports
+### Development & Testing
+- Clean messy CSV exports from exchanges
 - Normalize address formats
-- Prepare test wallets
-- Generate structured data
+- Prepare test wallet arrays
+- Generate structured data for scripts
+
+### Bot Integration (New)
+- Export keys-only for ethers.js signer arrays
+- Export indexed format for batch tracking
+- Export addresses for recipient lists
+- Prep data pipeline before automation
 
 ### Portfolio Management
-- Merge multiple sources
-- Remove duplicates
-- Validate checksums
+- Merge wallet data from multiple tools
+- Remove duplicates intelligently
+- Validate checksums before use
 - Export unified lists
 
-## 🔧 Technical Details
-
-### File Size
-- **~21KB** uncompressed
-- **~8KB** gzipped
-- Single file deployment
-
-### Browser Support
-- Chrome/Edge (latest)
-- Firefox (latest)
-- Safari (latest)
-- All modern browsers
-
-### Standards
-- EIP-55 address checksum (js-sha3)
-- RFC 4180 CSV format
-- JSON structured output
-
-### Network Status Indicator (v1.2)
-- Shows `✅ Offline Safe` when disconnected
-- Shows `⚠️ Online (no network calls)` when connected
-- Real-time status updates
-
-## 📝 File Formats
-
-### JSON Structure
-```json
-[
-  {
-    "private_key": "0x...",
-    "address": "0x..."
-  }
-]
-```
-
-### CSV Formats
-
-**Default:**
-```csv
-private_key,address
-"0x...","0x..."
-```
-
-**Indexed (new in v1.2):**
-```csv
-index,private_key,address
-1,"0x...","0x..."
-```
-
-**Keys Only:**
-```
-0x...
-0x...
-```
-
-**Addresses Only:**
-```
-0x...
-0x...
-```
+---
 
 ## 📋 Changelog
 
-### v1.2 (Current) - Trust Hardening
-- ✅ Proper EIP-55 checksum validation (js-sha3)
-- ✅ Export format presets (4 modes)
-- ✅ Burn Session button
-- ✅ Network status indicator
-- ✅ Removed CDN dependencies (fully offline)
-- ✅ Zero-key detection
+### Added
+- EIP-55 checksum validation with proper keccak256
+- Four export format presets (default, keys-only, addresses-only, indexed)
+- Burn session button (clears all data + reloads)
+- Network status indicator (offline safe / online warnings)
+- Content Security Policy meta tag
+- Version badge in UI
+- Zero-key detection
 
-### v1.1 - Validation
-- Real-time validation
-- Line number error reporting
-- Deduplication
-- Shuffle function
-- Count mismatch warnings
+### Changed
+- Removed CDN dependency (js-sha3 now served locally)
+- Improved error messages with exact line numbers
+- Enhanced validation stats display
+- Better visual feedback for errors (red borders)
+- Stricter security headers in deployment
 
-### v1.0 - Initial Release
-- Basic import/export
-- CSV/JSON support
-- Auto-clean
-
-## 🤝 Contributing
-
-Contributions welcome! Please:
-1. Fork the repo
-2. Create a feature branch
-3. Submit a PR
-
-### Development
-No build process needed:
-```bash
-# Edit index.html directly
-# Test in browser
-# Commit changes
-```
-
-## 📄 License
-
-MIT License - see [LICENSE](LICENSE) file
-
-## 🔗 Links
-
-- [Report Bug](https://github.com/yourusername/wallet-forge/issues)
-- [Request Feature](https://github.com/yourusername/wallet-forge/issues)
-- [Documentation](https://github.com/yourusername/wallet-forge/wiki)
-
-## ⚠️ Disclaimer
-
-This tool handles sensitive data (private keys). While it runs entirely client-side with no network access:
-- Always verify the source
-- Use on a secure machine
-- Never share private keys
-- Test with small amounts first
-- Download and run offline for maximum security
-
-**Use at your own risk. No warranties provided.**
+### Fixed
+- Checksum validation now uses real keccak256 (not pseudo-hash)
+- Private key validation rejects all-zero keys
+- Count mismatch detection more accurate
+- CSV parsing handles more edge cases
 
 ---
 
-**v1.2** — Made with 🔥 by CryptoExplor
+## 🚀 Deployment
 
-## 🔥 Features
-
-### Security First
-- 🔒 **100% Client-Side** — Zero backend, zero network requests
-- 🔒 **No Data Storage** — Nothing saved to disk or cloud
-- 🔒 **Offline Ready** — Works without internet connection
-- 🔒 **Open Source** — Fully auditable single HTML file
-
-### Validation
-- ✅ **EIP-55 Checksum** — Proper Ethereum address validation
-- ✅ **Private Key Format** — 64-char hex with optional 0x prefix
-- ✅ **Real-Time Errors** — Shows exact line numbers of invalid entries
-- ✅ **Count Mismatch Detection** — Warns when PKs ≠ Addresses
-
-### Data Processing
-- 🧹 **Auto-Clean** — Removes labels, quotes, and extra whitespace
-- 🎲 **Shuffle** — Fisher-Yates randomization for security
-- 🔄 **Deduplicate** — Remove duplicate wallet pairs
-- 📏 **Normalize** — Lowercase and trim all entries
-
-### Import/Export
-- 📂 **JSON** — Import/export structured wallet data
-- 📊 **CSV** — Standard spreadsheet format
-- 📄 **TXT** — Plain text lists (one per line)
-- 💾 **Individual Downloads** — Export keys or addresses separately
-
-## 🚀 Quick Start
-
-### Use Online
-Visit the deployed version: [wallet-forge.vercel.app](https://wallet-forge.vercel.app)
-
-### Use Locally
-1. Download `index.html`
-2. Open in any browser
-3. No installation required
-
-### Deploy Your Own
-
-#### Vercel
+### Vercel (Recommended)
 ```bash
-git clone https://github.com/yourusername/wallet-forge
-cd wallet-forge
-vercel deploy
+git clone https://github.com/CryptoExplor/Wallet-Forge
+cd Wallet-Forge
+vercel deploy --prod
 ```
 
-#### GitHub Pages
+### Local (Offline)
 ```bash
-git clone https://github.com/yourusername/wallet-forge
-cd wallet-forge
+# Download index.html and sha3.min.js
+# Open index.html in any browser
+# Works 100% offline
+```
+
+### GitHub Pages
+```bash
 # Enable Pages in repo settings
-git push origin main
+# Source: main branch → /public folder
+# Deploy automatically on push
 ```
 
-#### Netlify
-- Visit [app.netlify.com/drop](https://app.netlify.com/drop)
-- Drag and drop `index.html`
-- Done!
+---
 
-## 📖 Usage
+## 📝 Files Included
 
-### Basic Workflow
-1. **Import or paste** wallet data (keys, addresses, or both)
-2. **Validation runs automatically** — see errors in real-time
-3. **Process as needed** — clean, shuffle, dedupe
-4. **Export** in your preferred format
+- `public/index.html` - Complete application
+- `public/sha3.min.js` - Local cryptography library
+- `README.md` - Full documentation
+- `LICENSE` - MIT License
+- `vercel.json` - Deployment config with security headers
+- `.gitignore` - Standard exclusions
 
-### Validation Example
-```
-Input:
-0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb  ❌ Invalid (missing char)
-0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045  ✅ Valid
-
-Result:
-✓ Valid: 1  ✗ Invalid: 1
-Bad lines: 1
-```
-
-### Processing Options
-- **Remove Duplicates** — Enabled by default
-- **Normalize** — Lowercase + trim (enabled by default)
-- **Pad Empty Values** — Fill mismatched rows with blanks
-
-### Shuffle Example
-Use before exporting to randomize wallet order:
-```bash
-🔀 Shuffle → Exports in random order
-```
-Perfect for farming, testing, or security purposes.
-
-## 🛡️ Security Model
-
-### What This Tool Does NOT Do
-- ❌ No API calls
-- ❌ No analytics
-- ❌ No cookies
-- ❌ No localStorage (without explicit action)
-- ❌ No external scripts
-
-### Audit Trail
-- Single HTML file (~15KB)
-- No build process
-- No dependencies
-- Fully inspectable source
-
-### Safe For
-- ✅ Private key management
-- ✅ Airdrop preparation
-- ✅ Multi-wallet operations
-- ✅ Dev/test workflows
-
-## 🎯 Use Cases
-
-### Airdrop Farming
-- Import wallet sets
-- Validate all addresses
-- Shuffle for randomness
-- Export for bot consumption
-
-### Development
-- Clean messy CSV exports
-- Normalize address formats
-- Prepare test wallets
-- Generate structured data
-
-### Portfolio Management
-- Merge multiple sources
-- Remove duplicates
-- Validate checksums
-- Export unified lists
-
-## 🔧 Technical Details
-
-### File Size
-- **~15KB** uncompressed
-- **~6KB** gzipped
-- Single file deployment
-
-### Browser Support
-- Chrome/Edge (latest)
-- Firefox (latest)
-- Safari (latest)
-- All modern browsers
-
-### Standards
-- EIP-55 address checksum
-- RFC 4180 CSV format
-- JSON structured output
-
-## 📝 File Formats
-
-### JSON Structure
-```json
-[
-  {
-    "private_key": "0x...",
-    "address": "0x..."
-  }
-]
-```
-
-### CSV Format
-```csv
-private_key,address
-"0x...","0x..."
-```
-
-### TXT Format
-```
-0x... (one per line)
-```
+---
 
 ## 🤝 Contributing
 
 Contributions welcome! Please:
 1. Fork the repo
 2. Create a feature branch
-3. Submit a PR
+3. Test offline mode
+4. Submit a PR
 
-### Development
-No build process needed:
-```bash
-# Edit index.html directly
-# Test in browser
-# Commit changes
-```
+**Guidelines:**
+- Keep it client-side only
+- No external dependencies
+- Maintain security-first approach
+- Add tests for validation logic
 
-## 📄 License
+---
 
-MIT License - see [LICENSE](LICENSE) file
+## ⚠️ Security Disclaimer
 
-## 🔗 Links
-
-- [Report Bug](https://github.com/yourusername/wallet-forge/issues)
-- [Request Feature](https://github.com/yourusername/wallet-forge/issues)
-- [Documentation](https://github.com/yourusername/wallet-forge/wiki)
-
-## ⚠️ Disclaimer
-
-This tool handles sensitive data (private keys). While it runs entirely client-side with no network access:
-- Always verify the source
-- Use on a secure machine
+This tool handles **sensitive data** (private keys). While it runs entirely client-side:
+- Always verify the source code
+- Use on a secure, offline machine when possible
 - Never share private keys
 - Test with small amounts first
+- Audit the code yourself before trusting it
 
 **Use at your own risk. No warranties provided.**
 
 ---
 
-Made with 🔥 by the community
+## 🔗 Links
+
+- **Live App:** [wallet-forge.vercel.app](https://wallet-forge.vercel.app)
+- **Repository:** [github.com/CryptoExplor/Wallet-Forge](https://github.com/CryptoExplor/Wallet-Forge)
+- **Issues:** [Report bugs or request features](https://github.com/CryptoExplor/Wallet-Forge/issues)
+- **License:** MIT
+
+---
+
+## 📊 Comparison to v1.1
+
+| Feature | v1.1 | v1.2 |
+|---------|------|------|
+| **Checksum Validation** | Basic format check | Real EIP-55 with keccak256 |
+| **Export Formats** | 1 (default) | 4 (default, keys, addresses, indexed) |
+| **Offline Capability** | Partial (CDN dependency) | 100% (local sha3) |
+| **Burn Session** | ❌ | ✅ |
+| **Network Indicator** | ❌ | ✅ |
+| **CSP Protection** | ❌ | ✅ |
+| **Zero-Key Detection** | ❌ | ✅ |
+| **Line Error Numbers** | ❌ | ✅ |
+
+---
+
+## 🎯 What's Next?
+
+v1.2 is feature-complete for core wallet data preparation. Future development will focus on:
+
+**Potential v1.3 Features:**
+- Export presets for popular frameworks (ethers.js, hardhat)
+- Profile management (local storage only)
+- Advanced filtering tools
+- Column alignment helpers
+
+**What We Won't Add:**
+- ❌ Wallet connect / signing UI
+- ❌ RPC calls or balance checks
+- ❌ Backend or analytics
+- ❌ Cloud storage
+
+Staying **static, offline, and auditable** is what makes Wallet Forge trustworthy.
+
+---
+
+**v1.2 - Made with 🔥 by CryptoExplor**
+
+*Trust through transparency. Security through simplicity.*
