@@ -151,6 +151,51 @@
             background: #ddd;
             margin: 0 5px;
         }
+        .footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #eee;
+            text-align: center;
+            font-size: 13px;
+            color: #7f8c8d;
+        }
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 12px;
+        }
+        .footer-link {
+            color: #3498db;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        .footer-link:hover {
+            color: #2980b9;
+            text-decoration: underline;
+        }
+        .tip-address {
+            font-family: monospace;
+            font-size: 11px;
+            background: #f8f9fa;
+            padding: 8px 12px;
+            border-radius: 4px;
+            display: inline-block;
+            margin-top: 8px;
+            color: #2c3e50;
+            border: 1px solid #ddd;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .tip-address:hover {
+            background: #ecf0f1;
+        }
+        .footer-credit {
+            margin-top: 12px;
+            font-size: 12px;
+        }
     </style>
 </head>
 <body>
@@ -250,6 +295,25 @@
 
     <label id="previewLabel" style="margin-top: 20px; font-weight: bold; display: block;">Preview Output:</label>
     <pre id="output">Results will appear here...</pre>
+
+    <div class="footer">
+        <div class="footer-links">
+            <a href="https://github.com/CryptoExplor" target="_blank" rel="noopener noreferrer" class="footer-link">👤 GitHub</a>
+            <a href="https://github.com/CryptoExplor/Wallet-Forge" target="_blank" rel="noopener noreferrer" class="footer-link">⭐ Star Repo</a>
+            <a href="https://farcaster.xyz/dare1.eth" target="_blank" rel="noopener noreferrer" class="footer-link">💬 Farcaster</a>
+        </div>
+        <div>
+            <span style="font-size: 12px; color: #95a5a6;">💡 Support development:</span><br>
+            <span class="tip-address" onclick="copyTipAddress()" title="Click to copy">
+                0x4f6Fb0A6c8A4C667bdF73C0257BE162B144c1624
+            </span>
+        </div>
+        <div class="footer-credit">
+            Made with 🔥 by <a href="https://github.com/CryptoExplor" target="_blank" rel="noopener noreferrer" class="footer-link">CryptoExplor</a>
+            <br>
+            <span style="font-size: 11px; color: #95a5a6;">Trust through transparency · Security through simplicity</span>
+        </div>
+    </div>
 </div>
 
 <script>
@@ -685,6 +749,37 @@
         window.addEventListener('online', updateNetworkStatus);
         window.addEventListener('offline', updateNetworkStatus);
     });
+
+    // Copy tip address to clipboard
+    function copyTipAddress() {
+        const address = '0x4f6Fb0A6c8A4C667bdF73C0257BE162B144c1624';
+        
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(address).then(() => {
+                showStatus('✅ Tip address copied to clipboard!', '#27ae60');
+            }).catch(() => {
+                fallbackCopy(address);
+            });
+        } else {
+            fallbackCopy(address);
+        }
+    }
+
+    function fallbackCopy(text) {
+        const textarea = document.createElement('textarea');
+        textarea.value = text;
+        textarea.style.position = 'fixed';
+        textarea.style.opacity = '0';
+        document.body.appendChild(textarea);
+        textarea.select();
+        try {
+            document.execCommand('copy');
+            showStatus('✅ Tip address copied to clipboard!', '#27ae60');
+        } catch (err) {
+            showStatus('⚠️ Could not copy address', '#e74c3c');
+        }
+        document.body.removeChild(textarea);
+    }
 </script>
 
 </body>
