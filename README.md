@@ -4,7 +4,7 @@
 
 <div align="center">
 
-[![Version](https://img.shields.io/badge/version-1.2.0-blue.svg)](https://github.com/CryptoExplor/Wallet-Forge/releases/tag/v1.2.0)
+[![Version](https://img.shields.io/badge/version-1.3.0-blue.svg)](https://github.com/CryptoExplor/Wallet-Forge/releases/tag/v1.3.0)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Vercel](https://img.shields.io/badge/deployed%20on-vercel-black)](https://wallet-forge.vercel.app)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](http://makeapullrequest.com)
@@ -40,6 +40,7 @@
 - 🎲 **Shuffle** — Fisher-Yates randomization for security
 - 🔄 **Deduplicate** — Remove duplicate wallet pairs
 - 📏 **Normalize** — Lowercase and trim all entries
+- 🔧 **0x Formatting** — Add or remove 0x prefix from private keys (v1.3)
 
 ### Export Formats (v1.2)
 - 📋 **Default** — `private_key, address` (CSV)
@@ -120,6 +121,14 @@ Bad lines: 1
 - **Remove Duplicates** — Enabled by default
 - **Normalize** — Lowercase + trim (enabled by default)
 - **Pad Empty Values** — Fill mismatched rows with blanks
+
+### Private Key Formatting (New in v1.3)
+Choose how private keys are exported:
+- **Keep As-Is** — No modification (default)
+- **Ensure 0x prefix** — Add 0x to all keys
+- **Remove 0x prefix** — Strip 0x from all keys
+
+Perfect for different tool compatibility (ethers.js, hardhat, etc.).
 
 ### Export Presets (New in v1.2)
 Perfect for bot integration:
@@ -289,7 +298,12 @@ index,private_key,address
 
 ## 📋 Changelog
 
-### v1.2 (Current) - Trust Hardening
+### v1.3 (Current) - Format Flexibility
+- ✅ **0x Prefix Toggle** — Add or remove 0x from private keys on export
+- ✅ Tool compatibility for ethers.js, hardhat, and other frameworks
+- ✅ Footer logo updates (GitHub, Farcaster icons)
+
+### v1.2 - Trust Hardening
 - ✅ Proper EIP-55 checksum validation (js-sha3)
 - ✅ Export format presets (4 modes)
 - ✅ Burn Session button
@@ -352,6 +366,6 @@ See [SECURITY.md](SECURITY.md) for complete verification instructions.
 
 ---
 
-**v1.2** — Made with 🔥 by CryptoExplor
+**v1.3** — Made with 🔥 by CryptoExplor
 
 *Trust through transparency. Security through simplicity.*
