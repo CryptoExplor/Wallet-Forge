@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wallet Forge v1.2 - Client-Side Wallet Data Tool</title>
-    <meta name="description" content="100% client-side wallet data preparation tool with EIP-55 validation, deduplication, and secure shuffling">
+    <title>Wallet Forge - Client-Side Wallet Data Tool</title>
+    <meta name="description" content="100% client-side wallet data preparation tool with ETH address validation, deduplication, and secure shuffling">
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; connect-src 'none';">
     
     <!-- Load local sha3 library -->
@@ -201,7 +201,7 @@
 <body>
 
 <div class="container" style="position: relative;">
-    <span class="version-tag">v1.2</span>
+    <span class="version-tag">v1.3</span>
     
     <div class="security-banner">
         🔒 Runs fully in your browser — no data ever leaves your device
@@ -261,7 +261,23 @@
         </label>
     </div>
 
-    <h2>3. Export Format</h2>
+    <h2>3. Private Key Format (v1.3)</h2>
+    <div class="options-group">
+        <label class="checkbox-label">
+            <input type="radio" name="pkFormat" value="unchanged" checked>
+            <span>Keep As-Is</span>
+        </label>
+        <label class="checkbox-label">
+            <input type="radio" name="pkFormat" value="add0x">
+            <span>Ensure 0x prefix</span>
+        </label>
+        <label class="checkbox-label">
+            <input type="radio" name="pkFormat" value="remove0x">
+            <span>Remove 0x prefix</span>
+        </label>
+    </div>
+
+    <h2>4. Export Format</h2>
     <div class="options-group">
         <label class="checkbox-label">
             <input type="radio" name="exportFormat" value="default" checked>
@@ -281,7 +297,7 @@
         </label>
     </div>
 
-    <h2>4. Actions</h2>
+    <h2>5. Actions</h2>
     <div class="actions">
         <button class="btn-clean" onclick="cleanAllInputs()">✨ Auto-Clean</button>
         <button class="btn-shuffle" onclick="shuffleWallets()">🔀 Shuffle</button>
@@ -290,7 +306,7 @@
         <button class="btn-warning" onclick="downloadJSON()">Download JSON</button>
         <button class="btn-success" onclick="downloadCSV()">Download CSV</button>
         <button class="btn-secondary" onclick="clearAll()">Clear All</button>
-        <button class="btn-burn" onclick="burnSession()">🔥 Burn Session</button>
+        <button class="btn-secondary" style="background-color: #c0392b;" onclick="burnSession()">🔥 Burn Session</button>
     </div>
 
     <label id="previewLabel" style="margin-top: 20px; font-weight: bold; display: block;">Preview Output:</label>
@@ -298,9 +314,13 @@
 
     <div class="footer">
         <div class="footer-links">
-            <a href="https://github.com/CryptoExplor" target="_blank" rel="noopener noreferrer" class="footer-link">👤 GitHub</a>
+            <a href="https://github.com/CryptoExplor" target="_blank" rel="noopener noreferrer" class="footer-link">
+                <img src="https://github.githubassets.com/favicons/favicon.png" alt="GitHub" style="width: 16px; height: 16px; vertical-align: middle; margin-right: 4px;">GitHub
+            </a>
             <a href="https://github.com/CryptoExplor/Wallet-Forge" target="_blank" rel="noopener noreferrer" class="footer-link">⭐ Star Repo</a>
-            <a href="https://farcaster.xyz/dare1.eth" target="_blank" rel="noopener noreferrer" class="footer-link">💬 Farcaster</a>
+            <a href="https://farcaster.xyz/dare1.eth" target="_blank" rel="noopener noreferrer" class="footer-link">
+                <img src="https://farcaster.xyz/favicon-v3.png" alt="Farcaster" style="width: 16px; height: 16px; vertical-align: middle; margin-right: 4px;">Farcaster
+            </a>
         </div>
         <div>
             <span style="font-size: 12px; color: #95a5a6;">💡 Support development:</span><br>
@@ -566,6 +586,21 @@
             const dedupe = document.getElementById('optDedupe').checked;
             const normalize = document.getElementById('optNormalize').checked;
             const padEmpty = document.getElementById('optPadEmpty').checked;
+            const pkFormat = document.querySelector('input[name="pkFormat"]:checked').value;
+            
+            // Apply 0x formatting to private keys
+            if (pkFormat === 'add0x') {
+                keys = keys.map(k => {
+                    if (!k) return k;
+                    const clean = k.startsWith('0x') ? k.slice(2) : k;
+                    return '0x' + clean;
+                });
+            } else if (pkFormat === 'remove0x') {
+                keys = keys.map(k => {
+                    if (!k) return k;
+                    return k.startsWith('0x') ? k.slice(2) : k;
+                });
+            }
             
             if (normalize) {
                 keys = keys.map(k => k.toLowerCase().trim());
